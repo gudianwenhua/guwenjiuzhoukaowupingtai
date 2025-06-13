@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>古文九州统一信息登录平台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #2a5298, #1a2a6c);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.05"><path d="M20,20 L80,20 L80,80 L20,80 Z" fill="none" stroke="white" stroke-width="2"/><circle cx="50" cy="50" r="10" fill="none" stroke="white" stroke-width="1"/></svg>');
+            z-index: -1;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+        
+        .university-banner {
+            background: linear-gradient(rgba(10, 30, 80, 0.85), rgba(20, 50, 120, 0.9));
+            color: white;
+            padding: 50px 40px;
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .university-banner::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .university-banner::after {
+            content: "";
+            position: absolute;
+            bottom: -80px;
+            right: -80px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .university-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .university-logo i {
+            font-size: 40px;
+            color: #ffd700;
+            margin-right: 15px;
+        }
+        
+        .university-logo h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .slogan {
+            font-size: 20px;
+            font-weight: 300;
+            margin-bottom: 40px;
+            color: #e0e0e0;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .features {
+            list-style: none;
+            margin: 30px 0;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .features li {
+            margin-bottom: 18px;
+            display: flex;
+            align-items: flex-start;
+            font-size: 16px;
+        }
+        
+        .features li i {
+            font-size: 20px;
+            margin-right: 15px;
+            color: #ffd700;
+            background: rgba(255, 255, 255, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .copyright {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            z-index: 2;
+        }
+        
+        .login-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 50px 40px;
+            width: 55%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .login-header h2 {
+            font-size: 26px;
+            color: #1a2a6c;
+            margin-bottom: 10px;
+        }
+        
+        .login-header p {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .login-form {
+            margin: 0 auto;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #1a2a6c;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 2px solid #e1e5f0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: #f8f9fc;
+        }
+        
+        .input-group input:focus {
+            border-color: #1a2a6c;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(26, 42, 108, 0.2);
+            background: #ffffff;
+        }
+        
+        .options {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0 30px;
+            font-size: 14px;
+        }
+        
+        .options label {
+            color: #555;
+            cursor: pointer;
+        }
+        
+        .options a {
+            color: #1a2a6c;
+            text-decoration: none;
+            transition: all 0.2s;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        .options a:hover {
+            text-decoration: underline;
+        }
+        
+        .btn-login {
+            background: linear-gradient(to right, #1a2a6c, #2a5298);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            display: block;
+            box-shadow: 0 4px 15px rgba(26, 42, 108, 0.3);
+        }
+        
+        .btn-login:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(26, 42, 108, 0.4);
+        }
+        
+        .register-link {
+            text-align: center;
+            margin-top: 25px;
+            color: #666;
+            font-size: 15px;
+        }
+        
+        .register-link a {
+            color: #1a2a6c;
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+        
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            text-align: center;
+            margin-top: 15px;
+            font-weight: 500;
+            height: 20px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 15px;
+        }
+        
+        .error-message.show {
+            opacity: 1;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: #2a5298;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transition: all 0.4s ease;
+            max-width: 90%;
+        }
+        
+        .notification.show {
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .university-banner, .login-section {
+                width: 100%;
+            }
+            
+            .university-banner {
+                padding: 30px 20px 80px;
+            }
+            
+            .login-section {
+                padding: 30px 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .options {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+            
+            .university-logo h1 {
+                font-size: 24px;
+            }
+            
+            .slogan {
+                font-size: 18px;
+            }
+        }
+        
+        /* Animation for floating elements */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        /* Shake animation */
+        .shake {
+            animation: shake 0.5s;
+            border-color: #e74c3c !important;
+        }
+        
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-10px); }
+            100% { transform: translateX(0); }
+        }
+        
+        .security-info {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .security-info h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: white;
+        }
+        
+        .security-info p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <!-- 通知 -->
+    <div class="notification" id="notification"></div>
+    
+    <div class="container">
+        <div class="university-banner">
+            <div class="university-logo floating">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>古文九州信息平台</h1>
+            </div>
+            
+            <div class="slogan">知识 · 创新 · 卓越</div>
+            
+            <ul class="features">
+                <li>
+                    <i class="fas fa-book"></i>
+                    <div>统一信息门户，整合各类资源与服务</div>
+                </li>
+                <li>
+                    <i class="fas fa-lock"></i>
+                    <div>安全可靠的身份认证与权限管理系统</div>
+                </li>
+                <li>
+                    <i class="fas fa-users"></i>
+                    <div>支持多角色账户访问（教师/学生）</div>
+                </li>
+                <li>
+                    <i class="fas fa-desktop"></i>
+                    <div>古文九州考务平台全新上线</div>
+                </li>
+            </ul>
+            
+            <div class="security-info">
+                <h3><i class="fas fa-shield-alt"></i> 账户安全提示</h3>
+                <p>请妥善保管您的账户信息，不要将密码告知他人。系统已为每位用户分配独立账户，确保信息安全。</p>
+            </div>
+            
+            <div class="copyright">
+                © 2025 古文九州 信息中心 | 版权所有
+            </div>
+        </div>
+        
+        <div class="login-section">
+            <div class="login-header">
+                <h2>统一信息登录平台</h2>
+                <p>请输入您的账户信息以访问系统</p>
+            </div>
+            
+            <form id="loginForm" class="login-form">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="username" placeholder="学号/工号" required autocomplete="username">
+                </div>
+                
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="密码" required autocomplete="current-password">
+                </div>
+                
+                <div class="options">
+                    <label>
+                        <input type="checkbox" id="remember"> 记住账号
+                    </label>
+                    <a id="forgotPassword">忘记密码?</a>
+                </div>
+                
+                <button type="submit" class="btn-login">登 录</button>
+                
+                <div class="error-message" id="errorMessage"></div>
+            </form>
+            
+            <div class="register-link">
+                没有账户? <a id="registerAccount">立即注册</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 账户信息
+        const accounts = [
+            // 教师账户
+            { 
+                username: 'xuyuxuan', 
+                password: '0312152604', 
+                role: '教师',
+                redirect: '',
+                name: '许宇轩'
+            },
+            // 学生账户 (15个)
+            { username: 'lianganchao', password: '123456', role: '学生', redirect: '梁安超考务平台后台.html', name: '梁安超' },
+            { username: 's2023002', password: '123456', role: '学生', redirect: '梁安超考务平台后台.html', name: '王芳' },
+            { username: 's2023003', password: '123456', role: '学生', redirect: 'student_portal.html?id=3', name: '赵强' },
+            { username: 's2023004', password: '123456', role: '学生', redirect: 'student_portal.html?id=4', name: '刘洋' },
+            { username: 's2023005', password: '123456', role: '学生', redirect: 'student_portal.html?id=5', name: '陈静' },
+            { username: 's2023006', password: '123456', role: '学生', redirect: 'student_portal.html?id=6', name: '杨帆' },
+            { username: 's2023007', password: '123456', role: '学生', redirect: 'student_portal.html?id=7', name: '周涛' },
+            { username: 's2023008', password: '123456', role: '学生', redirect: 'student_portal.html?id=8', name: '吴迪' },
+            { username: 's2023009', password: '123456', role: '学生', redirect: 'student_portal.html?id=9', name: '郑浩' },
+            { username: 's2023010', password: '123456', role: '学生', redirect: 'student_portal.html?id=10', name: '孙悦' },
+            { username: 's2023011', password: '123456', role: '学生', redirect: 'student_portal.html?id=11', name: '朱琳' },
+            { username: 's2023012', password: '123456', role: '学生', redirect: 'student_portal.html?id=12', name: '马超' },
+            { username: 's2023013', password: '123456', role: '学生', redirect: 'student_portal.html?id=13', name: '胡杰' },
+            { username: 's2023014', password: '123456', role: '学生', redirect: 'student_portal.html?id=14', name: '林峰' },
+            { username: 's2023015', password: '123456', role: '学生', redirect: 'student_portal.html?id=15', name: '徐阳' }
+        ];
+        
+        // 显示通知
+        function showNotification(message, isSuccess = false) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.background = isSuccess ? '#27ae60' : '#2a5298';
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // 登录表单提交
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // 隐藏之前的错误消息
+            errorMessage.classList.remove('show');
+            
+            // 查找匹配的账户
+            const account = accounts.find(acc => 
+                acc.username === username && acc.password === password
+            );
+            
+            if (account) {
+                // 登录成功
+                errorMessage.textContent = `${account.role}登录成功，正在跳转...`;
+                errorMessage.style.color = '#27ae60';
+                errorMessage.classList.add('show');
+                
+                // 显示成功通知
+                showNotification(`欢迎回来，${account.name}${account.role === '教师' ? '' : '同学'}！`, true);
+                
+                // 延迟1秒后跳转
+                setTimeout(() => {
+                    // 在实际应用中，这里会跳转到指定页面
+                    // 由于我们无法创建实际文件，这里使用模拟跳转
+                    window.location.href = account.redirect;
+                    
+                    // 模拟跳转效果
+                    document.body.innerHTML = `
+                        <div style="display:flex;justify-content:center;align-items:center;height:100vh;background:linear-gradient(135deg, #1a2a6c, #2a5298);color:white;text-align:center;padding:20px;">
+                            <div>
+                                <h1 style="font-size:36px;margin-bottom:30px;"><i class="fas fa-check-circle"></i> 登录成功！</h1>
+                                <p style="font-size:24px;margin-bottom:20px;">${account.name}${account.role === '教师' ? '老师' : '同学'}，欢迎访问系统</p>
+                                <p style="font-size:20px;margin-bottom:40px;">正在跳转到: ${account.redirect}</p>
+                                <div style="display:flex;justify-content:center;">
+                                    <div class="spinner" style="border: 8px solid rgba(255,255,255,0.3); border-radius: 50%; border-top: 8px solid white; width: 60px; height: 60px; animation: spin 2s linear infinite;"></div>
+                                </div>
+                                <p style="margin-top:40px;font-size:16px;">如果页面没有自动跳转，<a href="#" onclick="window.location.reload()" style="color:#ffd700;text-decoration:underline;">点击返回登录页</a></p>
+                                <style>@keyframes spin {0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); }}</style>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // 模拟跳转延迟
+                    setTimeout(() => {
+                        // 实际应用中应该使用真实跳转
+                        // window.location.href = account.redirect;
+                        
+                        // 这里我们添加一个返回链接，便于演示
+                        document.body.innerHTML += `
+                            <div style="position:fixed;bottom:20px;right:20px;">
+                                <button onclick="window.location.reload()" style="background:#ffd700;color:#1a2a6c;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;font-weight:bold;">返回登录页</button>
+                            </div>
+                        `;
+                    }, 3000);
+                }, 1000);
+            } else {
+                // 登录失败
+                errorMessage.textContent = '用户名或密码错误，请重试';
+                errorMessage.style.color = '#e74c3c';
+                errorMessage.classList.add('show');
+                
+                // 显示错误通知
+                showNotification('登录失败，请检查您的凭证');
+                
+                // 添加抖动效果
+                document.getElementById('username').classList.add('shake');
+                document.getElementById('password').classList.add('shake');
+                setTimeout(() => {
+                    document.getElementById('username').classList.remove('shake');
+                    document.getElementById('password').classList.remove('shake');
+                }, 500);
+            }
+        });
+        
+        // 忘记密码功能
+        document.getElementById('forgotPassword').addEventListener('click', function() {
+            showNotification('请联系管理员重置密码');
+        });
+        
+        // 注册账号功能
+        document.getElementById('registerAccount').addEventListener('click', function() {
+            showNotification('请联系管理员添加账号');
+        });
+        
+        // 记住账号功能
+        const rememberCheckbox = document.getElementById('remember');
+        const usernameInput = document.getElementById('username');
+        
+        // 检查是否有保存的账号
+        const savedUsername = localStorage.getItem('savedUsername');
+        if (savedUsername) {
+            usernameInput.value = savedUsername;
+            rememberCheckbox.checked = true;
+        }
+        
+        // 保存账号到本地存储
+        rememberCheckbox.addEventListener('change', function() {
+            if (this.checked && usernameInput.value) {
+                localStorage.setItem('savedUsername', usernameInput.value);
+            } else {
+                localStorage.removeItem('savedUsername');
+            }
+        });
+        
+        // 账户信息仅供开发人员查看（不在页面上显示）
+        console.log("系统账户信息（仅供开发参考）");
+        console.table(accounts.map(acc => {
+            return {
+                '用户名': acc.username,
+                '密码': acc.password,
+                '角色': acc.role,
+                '姓名': acc.name,
+                '跳转页面': acc.redirect
+            };
+        }));
+    </script>
+</body>
+</html>
