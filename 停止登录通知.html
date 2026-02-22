@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>考务平台暂停登录通知</title>
+    <style>
+        /* 全局样式重置和基础设置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            padding: 40px 0;
+        }
+        
+        /* 通知容器样式 */
+        .notice-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 标题样式 */
+        .notice-title {
+            font-size: 24px;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e6e6e6;
+        }
+        
+        /* 通知正文样式 */
+        .notice-content {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #34495e;
+            margin-bottom: 30px;
+        }
+        
+        /* 预告标题样式 */
+        .preview-title {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        /* 预告列表样式 */
+        .preview-list {
+            list-style-position: inside;
+            padding-left: 10px;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #34495e;
+        }
+        
+        .preview-list li {
+            margin-bottom: 8px;
+        }
+        
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .notice-container {
+                padding: 20px;
+                margin: 0 15px;
+            }
+            
+            .notice-title {
+                font-size: 20px;
+            }
+            
+            .notice-content, .preview-list {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="notice-container">
+        <h1 class="notice-title">考务平台暂停登录通知</h1>
+        <div class="notice-content">
+            各位同学、老师大家好：<br><br>
+            由于组织官网进行升级并重新定义UI页面设计，同时将后续登录页面替换为统一身份认证平台，即日起全体师生将无法登录考务平台。考务平台早在2025年6月已加入统一身份认证平台作为试点，经过半年的使用和反馈，我中心技术部门将对整个统一身份认证平台进行改进和重构，因此会对各位师生的使用造成影响，我们对此深表歉意！
+        </div>
+        <h2 class="preview-title">下次更新预告</h2>
+        <ul class="preview-list">
+            <li>下次更新后，本组织的全部登录页面将使用全新统一身份认证平台</li>
+            <li>页面和使用体验将得到进一步优化</li>
+            <li>修复已知BUG，登录页面的等待时间将缩短</li>
+        </ul>
+    </div>
+</body>
+</html>
