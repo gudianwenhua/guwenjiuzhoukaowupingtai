@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>古文九州 - 统一身份认证平台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8e8e8 0%, #e8f4f8 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+            background-image: 
+                url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23c8d8e8' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        .bg-decoration {
+            position: absolute;
+            opacity: 0.15;
+            z-index: 0;
+        }
+        .decor-line1 {
+            top: 10%;
+            left: 5%;
+            width: 200px;
+            height: 200px;
+            border: 2px solid #36b3a8;
+            border-radius: 50%;
+            animation: rotate 60s linear infinite;
+        }
+        .decor-line2 {
+            bottom: 15%;
+            right: 10%;
+            width: 300px;
+            height: 300px;
+            border: 2px solid #a8d8d8;
+            border-radius: 50%;
+            animation: rotate 80s linear reverse infinite;
+        }
+        .decor-line3 {
+            top: 40%;
+            right: 25%;
+            width: 120px;
+            height: 120px;
+            border-left: 2px solid #f2b8b8;
+            border-top: 2px solid #f2b8b8;
+            border-radius: 50%;
+            animation: float-decor 20s ease-in-out infinite;
+        }
+        .decor-line4 {
+            top: 70%;
+            left: 20%;
+            width: 180px;
+            height: 180px;
+            border-right: 2px solid #b8d8f2;
+            border-bottom: 2px solid #b8d8f2;
+            border-radius: 50%;
+            animation: rotate 70s linear infinite;
+            opacity: 0.12;
+        }
+        .decor-line5 {
+            top: 25%;
+            right: 35%;
+            width: 220px;
+            height: 220px;
+            border: 1px solid #d8b8f2;
+            border-radius: 50%;
+            animation: float-decor 25s ease-in-out infinite reverse;
+            opacity: 0.1;
+        }
+        .decor-line6 {
+            top: 15%;
+            left: 25%;
+            width: 250px;
+            height: 2px;
+            background: #f2d8b8;
+            opacity: 0.18;
+            transform: rotate(30deg);
+            animation: float-line 18s ease-in-out infinite;
+        }
+        .decor-line7 {
+            bottom: 20%;
+            left: 40%;
+            width: 300px;
+            height: 1px;
+            background: #d8f2b8;
+            opacity: 0.15;
+            transform: rotate(-45deg);
+            animation: float-line 22s ease-in-out infinite reverse;
+        }
+        .decor-line8 {
+            top: 60%;
+            right: 15%;
+            width: 180px;
+            height: 2px;
+            background: #b8f2d8;
+            opacity: 0.16;
+            transform: rotate(60deg);
+            animation: float-line 20s ease-in-out infinite;
+        }
+        .decor-line9 {
+            top: 30%;
+            left: 60%;
+            width: 0;
+            height: 0;
+            border-left: 100px solid transparent;
+            border-bottom: 80px solid rgba(242, 184, 184, 0.1);
+            animation: float-decor 30s ease-in-out infinite;
+        }
+        .decor-line10 {
+            bottom: 35%;
+            right: 25%;
+            width: 0;
+            height: 0;
+            border-right: 120px solid transparent;
+            border-top: 90px solid rgba(168, 216, 216, 0.1);
+            animation: float-decor 28s ease-in-out infinite reverse;
+        }
+
+        .bg-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.2;
+            z-index: 0;
+        }
+        .glow1 {
+            top: 20%;
+            left: 20%;
+            width: 300px;
+            height: 300px;
+            background: #f8e8e8;
+        }
+        .glow2 {
+            bottom: 30%;
+            right: 20%;
+            width: 400px;
+            height: 400px;
+            background: #e8f4f8;
+        }
+        .glow3 {
+            top: 60%;
+            left: 40%;
+            width: 250px;
+            height: 250px;
+            background: #f2e8f8;
+            opacity: 0.15;
+        }
+
+        /* 圆形点子样式 - 统一75%透明度 */
+        .bg-dot {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.75; /* 75%透明度 */
+            animation: float 8s ease-in-out infinite;
+            z-index: 1;
+        }
+        /* 原有15个点子 */
+        .dot1 {
+            width: 8px;
+            height: 8px;
+            background: #f2b8b8;
+            top: 15%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        .dot2 {
+            width: 10px;
+            height: 10px;
+            background: #a8d8d8;
+            top: 6%;
+            left: 14%;
+            animation-delay: 1s;
+        }
+        .dot3 {
+            width: 12px;
+            height: 12px;
+            background: #a8d8f8;
+            top: 12%;
+            right: 20%;
+            animation-delay: 2s;
+        }
+        .dot4 {
+            width: 10px;
+            height: 10px;
+            background: #a8d8d8;
+            bottom: 15%;
+            right: 18%;
+            animation-delay: 3s;
+        }
+        .dot5 {
+            width: 20px;
+            height: 20px;
+            background: #f0d8d8;
+            bottom: 8%;
+            right: 5%;
+            animation-delay: 4s;
+        }
+        .dot6 {
+            width: 6px;
+            height: 6px;
+            background: #b8f2d8;
+            top: 45%;
+            left: 30%;
+            animation-delay: 0.5s;
+            animation-duration: 9s;
+        }
+        .dot7 {
+            width: 9px;
+            height: 9px;
+            background: #d8b8f2;
+            top: 75%;
+            right: 35%;
+            animation-delay: 1.5s;
+            animation-duration: 10s;
+        }
+        .dot8 {
+            width: 11px;
+            height: 11px;
+            background: #f2d8b8;
+            bottom: 40%;
+            left: 15%;
+            animation-delay: 2.5s;
+            animation-duration: 7s;
+        }
+        .dot9 {
+            width: 7px;
+            height: 7px;
+            background: #b8d8f2;
+            top: 80%;
+            left: 60%;
+            animation-delay: 3.5s;
+            animation-duration: 8s;
+        }
+        .dot10 {
+            width: 14px;
+            height: 14px;
+            background: #f2b8d8;
+            bottom: 25%;
+            right: 40%;
+            animation-delay: 4.5s;
+            animation-duration: 11s;
+        }
+        .dot11 {
+            width: 5px;
+            height: 5px;
+            background: #d8f2b8;
+            top: 30%;
+            right: 10%;
+            animation-delay: 5s;
+            animation-duration: 6s;
+        }
+        .dot12 {
+            width: 13px;
+            height: 13px;
+            background: #b8f2f2;
+            bottom: 10%;
+            left: 45%;
+            animation-delay: 5.5s;
+            animation-duration: 12s;
+        }
+        .dot13 {
+            width: 16px;
+            height: 16px;
+            background: #36b3a8;
+            top: 55%;
+            right: 10%;
+            animation-delay: 6s;
+            animation-duration: 7s;
+        }
+        .dot14 {
+            width: 7px;
+            height: 7px;
+            background: #f2b8b8;
+            bottom: 50%;
+            left: 25%;
+            animation-delay: 2s;
+            animation-duration: 8s;
+        }
+        .dot15 {
+            width: 10px;
+            height: 10px;
+            background: #a8d8f8;
+            top: 25%;
+            left: 65%;
+            animation-delay: 4s;
+            animation-duration: 9s;
+        }
+        /* 第一批新增15个点子 (16-30) */
+        .dot16 {
+            width: 4px;
+            height: 4px;
+            background: #f2b8b8;
+            top: 8%;
+            left: 35%;
+            animation-delay: 0.8s;
+            animation-duration: 8s;
+        }
+        .dot17 {
+            width: 18px;
+            height: 18px;
+            background: #a8d8d8;
+            top: 40%;
+            left: 10%;
+            animation-delay: 3.2s;
+            animation-duration: 10s;
+        }
+        .dot18 {
+            width: 7px;
+            height: 7px;
+            background: #b8f2d8;
+            bottom: 20%;
+            left: 55%;
+            animation-delay: 5.8s;
+            animation-duration: 9s;
+        }
+        .dot19 {
+            width: 11px;
+            height: 11px;
+            background: #d8b8f2;
+            top: 18%;
+            left: 80%;
+            animation-delay: 2.3s;
+            animation-duration: 11s;
+        }
+        .dot20 {
+            width: 9px;
+            height: 9px;
+            background: #f2d8b8;
+            bottom: 70%;
+            right: 30%;
+            animation-delay: 4.7s;
+            animation-duration: 7s;
+        }
+        .dot21 {
+            width: 6px;
+            height: 6px;
+            background: #b8d8f2;
+            top: 65%;
+            left: 45%;
+            animation-delay: 1.2s;
+            animation-duration: 12s;
+        }
+        .dot22 {
+            width: 14px;
+            height: 14px;
+            background: #f2b8d8;
+            bottom: 35%;
+            right: 55%;
+            animation-delay: 6.5s;
+            animation-duration: 8s;
+        }
+        .dot23 {
+            width: 5px;
+            height: 5px;
+            background: #d8f2b8;
+            top: 70%;
+            left: 15%;
+            animation-delay: 3.8s;
+            animation-duration: 9s;
+        }
+        .dot24 {
+            width: 12px;
+            height: 12px;
+            background: #b8f2f2;
+            top: 22%;
+            right: 45%;
+            animation-delay: 0.5s;
+            animation-duration: 10s;
+        }
+        .dot25 {
+            width: 8px;
+            height: 8px;
+            background: #36b3a8;
+            bottom: 85%;
+            left: 70%;
+            animation-delay: 5.2s;
+            animation-duration: 11s;
+        }
+        .dot26 {
+            width: 10px;
+            height: 10px;
+            background: #f0d8d8;
+            bottom: 60%;
+            left: 80%;
+            animation-delay: 2.8s;
+            animation-duration: 7s;
+        }
+        .dot27 {
+            width: 7px;
+            height: 7px;
+            background: #a8d8f8;
+            top: 50%;
+            right: 60%;
+            animation-delay: 4.3s;
+            animation-duration: 12s;
+        }
+        .dot28 {
+            width: 15px;
+            height: 15px;
+            background: #f2b8b8;
+            bottom: 18%;
+            left: 75%;
+            animation-delay: 1.8s;
+            animation-duration: 8s;
+        }
+        .dot29 {
+            width: 6px;
+            height: 6px;
+            background: #a8d8d8;
+            top: 85%;
+            right: 5%;
+            animation-delay: 6.2s;
+            animation-duration: 9s;
+        }
+        .dot30 {
+            width: 13px;
+            height: 13px;
+            background: #b8f2d8;
+            top: 48%;
+            right: 70%;
+            animation-delay: 3.5s;
+            animation-duration: 10s;
+        }
+        /* 第二批新增20个点子 (31-50) - 重点差异化尺寸 */
+        .dot31 {
+            width: 3px;  /* 极小尺寸 */
+            height: 3px;
+            background: #f2b8b8;
+            top: 10%;
+            left: 50%;
+            animation-delay: 0.3s;
+            animation-duration: 7.5s;
+        }
+        .dot32 {
+            width: 25px; /* 超大尺寸 */
+            height: 25px;
+            background: #a8d8d8;
+            bottom: 45%;
+            right: 12%;
+            animation-delay: 4.1s;
+            animation-duration: 11.5s;
+        }
+        .dot33 {
+            width: 19px; /* 大尺寸 */
+            height: 19px;
+            background: #b8f2d8;
+            top: 35%;
+            left: 75%;
+            animation-delay: 2.7s;
+            animation-duration: 8.5s;
+        }
+        .dot34 {
+            width: 5px;  /* 小尺寸 */
+            height: 5px;
+            background: #d8b8f2;
+            bottom: 80%;
+            left: 20%;
+            animation-delay: 5.9s;
+            animation-duration: 9.5s;
+        }
+        .dot35 {
+            width: 22px; /* 大尺寸 */
+            height: 22px;
+            background: #f2d8b8;
+            top: 78%;
+            left: 30%;
+            animation-delay: 1.7s;
+            animation-duration: 10.5s;
+        }
+        .dot36 {
+            width: 4px;  /* 极小尺寸 */
+            height: 4px;
+            background: #b8d8f2;
+            bottom: 25%;
+            left: 85%;
+            animation-delay: 6.8s;
+            animation-duration: 7.8s;
+        }
+        .dot37 {
+            width: 20px; /* 大尺寸 */
+            height: 20px;
+            background: #f2b8d8;
+            top: 18%;
+            left: 45%;
+            animation-delay: 3.9s;
+            animation-duration: 12.5s;
+        }
+        .dot38 {
+            width: 7px;  /* 小尺寸 */
+            height: 7px;
+            background: #d8f2b8;
+            bottom: 55%;
+            left: 12%;
+            animation-delay: 0.9s;
+            animation-duration: 8.2s;
+        }
+        .dot39 {
+            width: 17px; /* 中大号尺寸 */
+            height: 17px;
+            background: #b8f2f2;
+            top: 62%;
+            right: 25%;
+            animation-delay: 4.8s;
+            animation-duration: 9.2s;
+        }
+        .dot40 {
+            width: 6px;  /* 小尺寸 */
+            height: 6px;
+            background: #36b3a8;
+            top: 28%;
+            right: 80%;
+            animation-delay: 2.1s;
+            animation-duration: 10.2s;
+        }
+        .dot41 {
+            width: 21px; /* 大尺寸 */
+            height: 21px;
+            background: #f0d8d8;
+            bottom: 12%;
+            left: 28%;
+            animation-delay: 5.3s;
+            animation-duration: 11.2s;
+        }
+        .dot42 {
+            width: 8px;  /* 中小尺寸 */
+            height: 8px;
+            background: #a8d8f8;
+            top: 42%;
+            right: 38%;
+            animation-delay: 1.3s;
+            animation-duration: 7.2s;
+        }
+        .dot43 {
+            width: 14px; /* 中尺寸 */
+            height: 14px;
+            background: #f2b8b8;
+            bottom: 75%;
+            right: 50%;
+            animation-delay: 6.4s;
+            animation-duration: 8.8s;
+        }
+        .dot44 {
+            width: 9px;  /* 中小尺寸 */
+            height: 9px;
+            background: #a8d8d8;
+            top: 88%;
+            left: 55%;
+            animation-delay: 3.4s;
+            animation-duration: 9.8s;
+        }
+        .dot45 {
+            width: 16px; /* 中大号尺寸 */
+            height: 16px;
+            background: #b8f2d8;
+            bottom: 32%;
+            right: 65%;
+            animation-delay: 0.7s;
+            animation-duration: 10.8s;
+        }
+        .dot46 {
+            width: 5px;  /* 小尺寸 */
+            height: 5px;
+            background: #d8b8f2;
+            top: 58%;
+            left: 88%;
+            animation-delay: 4.4s;
+            animation-duration: 11.8s;
+        }
+        .dot47 {
+            width: 23px; /* 超大尺寸 */
+            height: 23px;
+            background: #f2d8b8;
+            top: 12%;
+            right: 60%;
+            animation-delay: 2.6s;
+            animation-duration: 7.9s;
+        }
+        .dot48 {
+            width: 4px;  /* 极小尺寸 */
+            height: 4px;
+            background: #b8d8f2;
+            bottom: 68%;
+            left: 42%;
+            animation-delay: 5.7s;
+            animation-duration: 8.9s;
+        }
+        .dot49 {
+            width: 18px; /* 中大号尺寸 */
+            height: 18px;
+            background: #f2b8d8;
+            top: 32%;
+            left: 18%;
+            animation-delay: 1.9s;
+            animation-duration: 9.9s;
+        }
+        .dot50 {
+            width: 7px;  /* 小尺寸 */
+            height: 7px;
+            background: #d8f2b8;
+            bottom: 88%;
+            right: 18%;
+            animation-delay: 6.1s;
+            animation-duration: 10.9s;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes float-decor {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-15px, -10px) rotate(10deg); }
+        }
+        @keyframes float-line {
+            0%, 100% { transform: rotate(30deg) translate(0, 0); }
+            50% { transform: rotate(30deg) translate(10px, 15px); }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-15px) rotate(10deg);
+            }
+        }
+
+        .header {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            animation: fadeInLeft 0.8s ease forwards;
+            z-index: 2;
+        }
+        /* ========== 关键修改：Logo样式 ========== */
+        .logo {
+            width: 48px;
+            height: 48px;
+            /* 移除原有背景色 */
+            /* background: #36b3a8; */
+            /* 添加新的logo图片 */
+            background-image: url("https://p3-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/9920594e4f944740b098fb420d840c9e.png~tplv-a9rns2rl98-24:720:720.image?lk3s=8e244e95&rcl=20260224202601F15CD8B00B77D103A3BE&rrcfp=8a172a1a&x-expires=1772540761&x-signature=C0SKuEZcP81J7KAUV14qLQxZFVQ%3D");
+            background-size: cover; /* 图片覆盖整个容器 */
+            background-position: center; /* 图片居中显示 */
+            border-radius: 8px;
+            /* 移除原有文字样式 */
+            /* color: white;
+            font-size: 18px;
+            font-weight: bold; */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            transition: all 0.3s ease;
+        }
+        /* ========== Logo样式修改结束 ========== */
+        .logo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(54, 179, 168, 0.3);
+        }
+        .title {
+            font-size: 22px;
+            color: #333;
+            font-weight: 500;
+        }
+        .subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .login-card {
+            position: absolute;
+            top: 50%;
+            right: 80px;
+            transform: translateY(-50%);
+            width: 380px;
+            max-width: calc(100% - 40px);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            opacity: 0;
+            animation: fadeInRight 0.8s ease 0.3s forwards;
+            transition: all 0.3s ease;
+            z-index: 2;
+            backdrop-filter: blur(5px);
+        }
+        .login-card:hover {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            transform: translateY(-50%) scale(1.01);
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateY(-50%) translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(-50%) translateX(0);
+            }
+        }
+
+        .tab-nav {
+            display: flex;
+            margin-bottom: 24px;
+            border-bottom: 1px solid #eee;
+        }
+        .tab-item {
+            flex: 1;
+            text-align: center;
+            padding-bottom: 12px;
+            font-size: 16px;
+            color: #666;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .tab-item.active {
+            color: #36b3a8;
+            font-weight: 500;
+        }
+        .tab-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #36b3a8;
+            animation: tabSlide 0.4s ease forwards;
+        }
+        .tab-item:not(.active):hover {
+            color: #36b3a8;
+            transform: translateY(-2px);
+        }
+
+        @keyframes tabSlide {
+            from {
+                width: 0;
+                left: 50%;
+            }
+            to {
+                width: 100%;
+                left: 0;
+            }
+        }
+
+        .form-item {
+            margin-bottom: 16px;
+            position: relative;
+        }
+        .form-item input {
+            width: 100%;
+            padding: 14px 16px 14px 44px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            font-size: 14px;
+            background: #f8f9fa;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .form-item input:focus {
+            border-color: #36b3a8;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(54, 179, 168, 0.1);
+            transform: translateY(-2px);
+        }
+        .form-item .icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+        .form-item input:focus + .icon {
+            color: #36b3a8;
+            transform: translateY(-50%) scale(1.1);
+        }
+        .form-item .eye-icon {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .form-item .eye-icon:hover {
+            color: #36b3a8;
+            transform: translateY(-50%) scale(1.2);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+        .btn:active::after {
+            width: 300px;
+            height: 300px;
+            opacity: 0;
+        }
+        .btn-login {
+            background: #36b3a8;
+            color: white;
+        }
+        .btn-login:hover {
+            background: #2da096;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(54, 179, 168, 0.2);
+        }
+        .btn-wechat {
+            background: #09bb07;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .btn-wechat:hover {
+            background: #07a805;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(9, 187, 7, 0.2);
+        }
+        .wechat-icon {
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+        .btn-wechat:hover .wechat-icon {
+            transform: scale(1.1);
+        }
+        .btn-activate {
+            background: #667eea;
+            color: white;
+        }
+        .btn-activate:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.2);
+        }
+
+        .agreement {
+            display: flex;
+            align-items: flex-start;
+            font-size: 13px;
+            color: #666;
+            margin: 16px 0;
+            transition: all 0.3s ease;
+            line-height: 1.4;
+        }
+        .agreement input {
+            margin-right: 8px;
+            margin-top: 2px;
+            accent-color: #36b3a8;
+            cursor: pointer;
+        }
+        .agreement a {
+            color: #36b3a8;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .agreement a:hover {
+            color: #2da096;
+            text-decoration: underline;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #666;
+        }
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .footer-links a:hover {
+            color: #36b3a8;
+            transform: translateY(-2px);
+        }
+
+        .quote {
+            position: absolute;
+            bottom: 120px;
+            left: 80px;
+            text-align: left;
+            color: #888;
+            font-size: 16px;
+            line-height: 1.6;
+            font-style: italic;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.6s forwards;
+            transition: all 0.3s ease;
+            max-width: 400px;
+            z-index: 2;
+        }
+        .quote:hover {
+            color: #36b3a8;
+            transform: translateY(-5px);
+        }
+        .quote-author {
+            margin-top: 12px;
+            font-size: 14px;
+            font-style: normal;
+            color: #999;
+            text-align: right;
+        }
+
+        .copyright {
+            position: absolute;
+            bottom: 20px;
+            left: 80px;
+            font-size: 12px;
+            color: #999;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.8s forwards;
+            line-height: 1.5;
+            z-index: 2;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 提示消息样式 */
+        .message {
+            height: 20px;
+            line-height: 20px;
+            margin: 8px 0;
+            font-size: 13px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .message.error {
+            color: #e53e3e;
+        }
+        .message.success {
+            color: #38a169;
+        }
+        .message.hidden {
+            opacity: 0;
+        }
+
+        /* 激活账号表单容器 */
+        .form-container {
+            display: none;
+        }
+        .form-container.active {
+            display: block;
+        }
+
+        @media (max-width: 1200px) {
+            .quote, .copyright {
+                left: 40px;
+            }
+            .login-card {
+                right: 40px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .quote {
+                max-width: 300px;
+                font-size: 14px;
+                bottom: 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .login-card {
+                right: 50%;
+                transform: translate(50%, -50%);
+            }
+            .quote, .copyright {
+                display: none;
+            }
+            .decor-line1 { width: 150px; height: 150px; }
+            .decor-line2 { width: 200px; height: 200px; }
+            .decor-line3 { width: 80px; height: 80px; }
+            .decor-line4 { width: 120px; height: 120px; }
+            .decor-line5 { width: 150px; height: 150px; }
+            .decor-line6 { width: 180px; }
+            .decor-line7 { width: 200px; }
+            .glow1 { width: 200px; height: 200px; }
+            .glow2 { width: 250px; height: 250px; }
+            .glow3 { width: 180px; height: 180px; }
+            /* 移动端Logo适配 */
+            .logo {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 20px 16px;
+            }
+            .title {
+                font-size: 18px;
+            }
+            .logo {
+                width: 40px;
+                height: 40px;
+                /* font-size: 16px; 移除文字样式 */
+            }
+            .form-item input {
+                padding: 12px 14px 12px 40px;
+                font-size: 13px;
+            }
+            .btn {
+                padding: 12px;
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 移除粒子效果容器 -->
+
+    <div class="bg-decoration decor-line1"></div>
+    <div class="bg-decoration decor-line2"></div>
+    <div class="bg-decoration decor-line3"></div>
+    <div class="bg-decoration decor-line4"></div>
+    <div class="bg-decoration decor-line5"></div>
+    <div class="bg-decoration decor-line6"></div>
+    <div class="bg-decoration decor-line7"></div>
+    <div class="bg-decoration decor-line8"></div>
+    <div class="bg-decoration decor-line9"></div>
+    <div class="bg-decoration decor-line10"></div>
+
+    <div class="bg-glow glow1"></div>
+    <div class="bg-glow glow2"></div>
+    <div class="bg-glow glow3"></div>
+
+    <!-- 原有15个圆形点子 -->
+    <div class="bg-dot dot1"></div>
+    <div class="bg-dot dot2"></div>
+    <div class="bg-dot dot3"></div>
+    <div class="bg-dot dot4"></div>
+    <div class="bg-dot dot5"></div>
+    <div class="bg-dot dot6"></div>
+    <div class="bg-dot dot7"></div>
+    <div class="bg-dot dot8"></div>
+    <div class="bg-dot dot9"></div>
+    <div class="bg-dot dot10"></div>
+    <div class="bg-dot dot11"></div>
+    <div class="bg-dot dot12"></div>
+    <div class="bg-dot dot13"></div>
+    <div class="bg-dot dot14"></div>
+    <div class="bg-dot dot15"></div>
+    
+    <!-- 第一批新增15个点子 (16-30) -->
+    <div class="bg-dot dot16"></div>
+    <div class="bg-dot dot17"></div>
+    <div class="bg-dot dot18"></div>
+    <div class="bg-dot dot19"></div>
+    <div class="bg-dot dot20"></div>
+    <div class="bg-dot dot21"></div>
+    <div class="bg-dot dot22"></div>
+    <div class="bg-dot dot23"></div>
+    <div class="bg-dot dot24"></div>
+    <div class="bg-dot dot25"></div>
+    <div class="bg-dot dot26"></div>
+    <div class="bg-dot dot27"></div>
+    <div class="bg-dot dot28"></div>
+    <div class="bg-dot dot29"></div>
+    <div class="bg-dot dot30"></div>
+
+    <!-- 第二批新增20个点子 (31-50) - 重点差异化尺寸 -->
+    <div class="bg-dot dot31"></div>
+    <div class="bg-dot dot32"></div>
+    <div class="bg-dot dot33"></div>
+    <div class="bg-dot dot34"></div>
+    <div class="bg-dot dot35"></div>
+    <div class="bg-dot dot36"></div>
+    <div class="bg-dot dot37"></div>
+    <div class="bg-dot dot38"></div>
+    <div class="bg-dot dot39"></div>
+    <div class="bg-dot dot40"></div>
+    <div class="bg-dot dot41"></div>
+    <div class="bg-dot dot42"></div>
+    <div class="bg-dot dot43"></div>
+    <div class="bg-dot dot44"></div>
+    <div class="bg-dot dot45"></div>
+    <div class="bg-dot dot46"></div>
+    <div class="bg-dot dot47"></div>
+    <div class="bg-dot dot48"></div>
+    <div class="bg-dot dot49"></div>
+    <div class="bg-dot dot50"></div>
+
+    <div class="header">
+        <!-- ========== 关键修改：移除Logo内的文字 ========== -->
+        <div class="logo"></div>
+        <!-- ========== Logo文字移除结束 ========== -->
+        <div>
+            <div class="title">古文九州</div>
+            <div class="subtitle">统一身份认证平台</div>
+        </div>
+    </div>
+
+    <div class="login-card">
+        <div class="tab-nav">
+            <div class="tab-item active" data-tab="login">账号登录</div>
+            <div class="tab-item" data-tab="activate">激活账号</div>
+        </div>
+
+        <!-- 登录表单 -->
+        <div class="form-container active" id="login-form">
+            <div class="form-item">
+                <i class="fas fa-user icon"></i>
+                <input type="text" placeholder="请输入用户名" id="username">
+            </div>
+            <div class="form-item">
+                <i class="fas fa-lock icon"></i>
+                <input type="password" placeholder="请输入密码" id="passwordInput">
+                <i class="fas fa-eye eye-icon" id="eyeIcon"></i>
+            </div>
+            <!-- 提示消息 -->
+            <div class="message hidden" id="login-message"></div>
+            <div class="agreement">
+                <input type="checkbox" id="agree">
+                <label for="agree">
+                    我已阅读并同意登录即表示您同意我们的
+                    <a href="privacy.html" class="agreement-link" target="_blank">隐私协议</a>
+                    和
+                    <a href="user.html" class="agreement-link" target="_blank">用户协议</a>
+                </label>
+            </div>
+            <button class="btn btn-login" id="login-btn">登录</button>
+            <!-- 给微信登录按钮添加ID：btn-wechat -->
+            <button class="btn btn-wechat" id="btn-wechat">
+                <i class="fab fa-weixin wechat-icon"></i>
+                微信快捷登录
+            </button>
+            <div class="footer-links">
+                <a href="javascript:void(0)" id="to-activate">激活账号</a>
+                <a href="#">忘记密码?</a>
+            </div>
+        </div>
+
+        <!-- 激活账号表单 -->
+        <div class="form-container" id="activate-form">
+            <div class="form-item">
+                <i class="fas fa-user icon"></i>
+                <input type="text" placeholder="请输入需要激活的账号" id="activate-username">
+            </div>
+            <div class="form-item">
+                <i class="fas fa-key icon"></i>
+                <input type="text" placeholder="请输入激活码" id="activate-code">
+            </div>
+            <!-- 激活提示消息 -->
+            <div class="message hidden" id="activate-message"></div>
+            <button class="btn btn-activate" id="activate-btn">激活账号</button>
+            <div class="footer-links">
+                <a href="javascript:void(0)" id="to-login">返回登录</a>
+                <a href="javascript:void(0)" id="get-activate-code">获取激活码</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="quote">
+        "博学之，审问之，慎思之，明辨之，笃行之"
+        <div class="quote-author">——《中庸》</div>
+    </div>
+
+    <div class="copyright">
+        古文九州 版权所有 | 传承华夏文明，弘扬国学经典<br>
+        服务热线: 15118586836 | 服务邮箱: a1313592021@outlook.com
+    </div>
+
+    <!-- 移除粒子效果JS引入 -->
+    <script>
+        // 移除粒子效果初始化代码
+
+        // 核心配置 - 15个内置账号
+        const userList = [
+            {username: "xuyuxuan", password: "0312152604", isActivated: false, activateCode: "0312152604", targetUrl: "激活通知.html"},
+            {username: "15118586836", password: "0312152604", isActivated: false, activateCode: "0312152604", targetUrl: "激活通知.html"},
+            {username: "user02", password: "654321", isActivated: false, activateCode: "user02888", targetUrl: "user02.html"},
+            {username: "user03", password: "654321", isActivated: false, activateCode: "user03888", targetUrl: "user03.html"},
+            {username: "user04", password: "654321", isActivated: false, activateCode: "user04888", targetUrl: "user04.html"},
+            {username: "user05", password: "654321", isActivated: false, activateCode: "user05888", targetUrl: "user05.html"},
+            {username: "user06", password: "654321", isActivated: false, activateCode: "user06888", targetUrl: "user06.html"},
+            {username: "user07", password: "654321", isActivated: false, activateCode: "user07888", targetUrl: "user07.html"},
+            {username: "user08", password: "654321", isActivated: false, activateCode: "user08888", targetUrl: "user08.html"},
+            {username: "user09", password: "654321", isActivated: false, activateCode: "user09888", targetUrl: "user09.html"},
+            {username: "user10", password: "654321", isActivated: false, activateCode: "user10888", targetUrl: "user10.html"},
+            {username: "user11", password: "654321", isActivated: false, activateCode: "user11888", targetUrl: "user11.html"},
+            {username: "user12", password: "654321", isActivated: false, activateCode: "user12888", targetUrl: "user12.html"},
+            {username: "user13", password: "654321", isActivated: false, activateCode: "user13888", targetUrl: "user13.html"},
+            {username: "user14", password: "654321", isActivated: false, activateCode: "user14888", targetUrl: "user14.html"}
+        ];
+
+        // 密码显示/隐藏
+        const eyeIcon = document.getElementById('eyeIcon');
+        const passwordInput = document.getElementById('passwordInput');
+        eyeIcon.addEventListener('click', function() {
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        });
+
+        // 标签切换功能
+        const tabItems = document.querySelectorAll('.tab-item');
+        const loginForm = document.getElementById('login-form');
+        const activateForm = document.getElementById('activate-form');
+        
+        tabItems.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabType = this.dataset.tab;
+                tabItems.forEach(item => item.classList.remove('active'));
+                this.classList.add('active');
+                if (tabType === 'login') {
+                    loginForm.classList.add('active');
+                    activateForm.classList.remove('active');
+                } else if (tabType === 'activate') {
+                    loginForm.classList.remove('active');
+                    activateForm.classList.add('active');
+                }
+                document.getElementById('login-message').classList.add('hidden');
+                document.getElementById('activate-message').classList.add('hidden');
+            });
+        });
+
+        // 快捷切换
+        document.getElementById('to-activate').addEventListener('click', function() {
+            tabItems[1].click();
+        });
+        document.getElementById('to-login').addEventListener('click', function() {
+            tabItems[0].click();
+        });
+
+        // 获取激活码提示
+        document.getElementById('get-activate-code').addEventListener('click', function() {
+            alert('请联系信息中心老师获取');
+        });
+
+        // 微信登录点击提示
+        document.getElementById('btn-wechat').addEventListener('click', function() {
+            alert('为保证信息系统安全性微信登录将暂停使用');
+        });
+
+        // 显示提示消息函数
+        function showMessage(elementId, text, isError = true) {
+            const messageEl = document.getElementById(elementId);
+            messageEl.textContent = text;
+            messageEl.classList.remove('hidden');
+            if (isError) {
+                messageEl.classList.add('error');
+                messageEl.classList.remove('success');
+            } else {
+                messageEl.classList.add('success');
+                messageEl.classList.remove('error');
+            }
+            setTimeout(() => {
+                messageEl.classList.add('hidden');
+            }, 3000);
+        }
+
+        // 登录验证逻辑
+        document.getElementById('login-btn').addEventListener('click', function() {
+            const username = document.getElementById('username').value.trim();
+            const password = passwordInput.value.trim();
+            const agreeChecked = document.getElementById('agree').checked;
+
+            if (!username) {showMessage('login-message', '请输入用户名');return;}
+            if (!password) {showMessage('login-message', '请输入密码');return;}
+            if (!agreeChecked) {showMessage('login-message', '请同意隐私协议和用户协议');return;}
+
+            const user = userList.find(item => item.username === username);
+            if (!user) {showMessage('login-message', '用户名不存在');return;}
+            if (user.password !== password) {showMessage('login-message', '密码错误');return;}
+            if (!user.isActivated) {showMessage('login-message', '请先激活账号再登录');return;}
+
+            showMessage('login-message', '登录成功，正在跳转...', false);
+            this.disabled = true;
+            this.textContent = '跳转中...';
+            setTimeout(() => {
+                window.location.href = user.targetUrl;
+            }, 1000);
+        });
+
+        // 激活账号逻辑
+        document.getElementById('activate-btn').addEventListener('click', function() {
+            const activateUsername = document.getElementById('activate-username').value.trim();
+            const activateCode = document.getElementById('activate-code').value.trim();
+
+            if (!activateUsername) {showMessage('activate-message', '请输入需要激活的账号');return;}
+            if (!activateCode) {showMessage('activate-message', '请输入激活码');return;}
+
+            const user = userList.find(item => item.username === activateUsername);
+            if (!user) {showMessage('activate-message', '账号不存在');return;}
+            if (user.isActivated) {showMessage('activate-message', '该账号已激活，无需重复激活', false);return;}
+            if (user.activateCode !== activateCode) {showMessage('activate-message', '激活码错误');return;}
+
+            user.isActivated = true;
+            showMessage('activate-message', '账号激活成功，请返回登录', false);
+            this.disabled = true;
+            this.textContent = '激活成功';
+            setTimeout(() => {
+                tabItems[0].click();
+                this.disabled = false;
+                this.textContent = '激活账号';
+                document.getElementById('activate-username').value = '';
+                document.getElementById('activate-code').value = '';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

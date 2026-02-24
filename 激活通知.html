@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>统一身份认证平台上线通知</title>
+    <!-- 引入图标库增加视觉元素 -->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 全局样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", sans-serif;
+            transition: all 0.2s ease; /* 全局轻微过渡动效，提升交互质感 */
+        }
+
+        /* 页面背景 - 更细腻的渐变+噪点纹理，避免单调 */
+        body {
+            background: linear-gradient(135deg, #f5f8ff 0%, #eaf2ff 50%, #e0e9ff 100%);
+            min-height: 100vh;
+            padding: 40px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* 轻微噪点纹理，提升高级感 */
+            background-image: 
+                radial-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* 通知卡片容器 - 双层阴影+内阴影+轻微渐变背景，提升立体感 */
+        .notice-container {
+            max-width: 800px;
+            width: 90%;
+            background: linear-gradient(180deg, #ffffff 0%, #fafdff 100%);
+            border-radius: 16px;
+            box-shadow: 
+                0 12px 32px rgba(59, 130, 246, 0.08),
+                0 2px 8px rgba(0, 0, 0, 0.04);
+            /* 内阴影增加层次感 */
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8),
+                        0 8px 24px rgba(149, 157, 165, 0.12);
+            padding: 60px 50px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(229, 239, 255, 0.8);
+        }
+
+        /* Logo+文字容器 - 增加hover动效，提升交互感 */
+        .logo-wrapper {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px; /* 优化间距 */
+            z-index: 10;
+            cursor: default;
+        }
+
+        /* Logo样式 - 轻微阴影+hover上浮 */
+        .platform-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px; /* 轻微圆角，和logo风格呼应 */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .logo-wrapper:hover .platform-logo {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        /* 品牌文字样式 - 渐变色彩，和logo多彩风格呼应 */
+        .brand-text {
+            font-size: 22px;
+            font-weight: 700;
+            /* 渐变文字，匹配logo的多彩调性 */
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1.2px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+        }
+
+        .logo-wrapper:hover .brand-text {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        /* 顶部装饰条 - 更细腻的多色渐变，匹配logo */
+        .notice-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa, #8b5cf6, #ec4899);
+        }
+
+        /* 通知标题区域 - 优化间距+标题渐变 */
+        .notice-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid #f5f8ff;
+            padding-top: 15px;
+        }
+
+        .notice-icon {
+            font-size: 36px;
+            color: #3b82f6;
+            margin-bottom: 18px;
+            /* 轻微动效 */
+            filter: drop-shadow(0 2px 4px rgba(59, 130, 246, 0.1));
+        }
+
+        .notice-title {
+            font-size: 28px;
+            color: #1e293b;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            /* 轻微渐变提升质感 */
+            background: linear-gradient(90deg, #1e293b, #334155);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .notice-subtitle {
+            font-size: 15px;
+            color: #64748b;
+            letter-spacing: 0.5px;
+            /* 轻微斜体，增加精致感 */
+            font-style: italic;
+        }
+
+        /* 通知内容区域 - 首行缩进+优化行高 */
+        .notice-content {
+            font-size: 16px;
+            color: #334155;
+            line-height: 2.1; /* 更舒适的行高 */
+            text-align: justify;
+            letter-spacing: 0.4px;
+        }
+
+        .notice-content p {
+            margin-bottom: 22px;
+            /* 中文首行缩进2字符 */
+            text-indent: 2em;
+        }
+
+        /* 重点内容高亮 - 立体效果+渐变背景 */
+        .highlight {
+            color: #ffffff;
+            font-weight: 600;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            padding: 4px 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(59, 130, 246, 0.15);
+            /* 轻微内边距，避免文字贴边 */
+            margin: 0 2px;
+        }
+
+        /* 底部提示 - 优化样式+轻微渐变 */
+        .notice-footer {
+            margin-top: 45px;
+            padding-top: 25px;
+            border-top: 1px dashed #e8f0fe;
+            text-align: center;
+            font-size: 14px;
+            color: #64748b;
+            letter-spacing: 0.5px;
+            /* 渐变文字提升质感 */
+            background: linear-gradient(90deg, #64748b, #8b94a3);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* 响应式适配 - 更细致的移动端优化 */
+        @media (max-width: 768px) {
+            .notice-container {
+                padding: 35px 25px;
+                padding-top: 110px;
+                border-radius: 12px;
+            }
+
+            .logo-wrapper {
+                gap: 10px;
+                top: 20px;
+                left: 20px;
+            }
+
+            .platform-logo {
+                width: 65px;
+                height: 65px;
+            }
+
+            .brand-text {
+                font-size: 18px;
+                letter-spacing: 1px;
+            }
+
+            .notice-title {
+                font-size: 24px;
+            }
+
+            .notice-icon {
+                font-size: 32px;
+            }
+
+            .notice-content {
+                font-size: 15px;
+                line-height: 2;
+            }
+
+            .notice-content p {
+                text-indent: 1.8em;
+                margin-bottom: 20px;
+            }
+
+            .highlight {
+                padding: 3px 8px;
+                border-radius: 6px;
+            }
+        }
+
+        /* 超小屏适配 */
+        @media (max-width: 420px) {
+            .brand-text {
+                font-size: 16px;
+            }
+
+            .platform-logo {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="notice-container">
+        <!-- Logo+品牌文字容器 -->
+        <div class="logo-wrapper">
+            <img src="https://p26-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/0c3e526b4e624260ad79734a592a88de.png~tplv-a9rns2rl98-24:720:720.png?lk3s=8e244e95&rcl=202602242102177B08AC492F802AC19CBB&rrcfp=8a172a1a&x-expires=1772542938&x-signature=hIDvBoBo6wR1wQZVRpvhS1yAwH8%3D" 
+                 alt="统一身份认证平台logo" 
+                 class="platform-logo">
+            <div class="brand-text">九州考试中心</div>
+        </div>
+        
+        <div class="notice-header">
+            <div class="notice-icon">
+                <i class="fas fa-bell"></i>
+            </div>
+            <h1 class="notice-title">统一身份认证平台上线通知</h1>
+            <div class="notice-subtitle">重要通知 · 请全体师生知悉</div>
+        </div>
+        <div class="notice-content">
+            <p>各位同学和老师你们好！</p>
+            <p>当前组织的<span class="highlight">统一身份认证平台已成功上线</span>，目前所有的组织官网及相关网页登录页面已统一替换成统一身份认证平台登录。</p>
+            <p>请大家先使用<span class="highlight">企业微信查看自己的激活码</span>，并输入自己的账号完成账号激活。</p>
+            <p>由于当前其他页面未完善UI设计，所以暂不开放，各位同学和老师先完成账号激活步骤。</p>
+            <p>感谢大家的配合！</p>
+            <a href="统一登陆平台.html" style="display: inline-block; background-color: #ffcc00; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px;" target="_blank">激活</a>
+        </div>
+        <div class="notice-footer">
+            如有疑问，请联系信息技术中心 | 2026年2月
+        </div>
+    </div>
+</body>
+</html>
